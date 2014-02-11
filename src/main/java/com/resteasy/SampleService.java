@@ -1,7 +1,6 @@
 package com.resteasy;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+
 import com.resteasy.model.Employee;
 
 import java.util.ArrayList;
@@ -36,22 +35,13 @@ public class SampleService {
 
     }
 
-    private Builder builder;
-
-    public SampleService() {
-    }
-
-    @Inject
-    public SampleService(Builder builder) {
-        this.builder = builder;
-    }
 
 
     @GET
     @Path("/hello")
     @Produces("text/plain")
     public String hello() {
-        return "Hello World"+builder;
+        return "Hello World";
     }
 
     @GET
