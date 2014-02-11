@@ -1,8 +1,10 @@
 package com.resteasy;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+
 import com.resteasy.model.Employee;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,22 +38,14 @@ public class SampleService {
 
     }
 
-    private Builder builder;
-
-    public SampleService() {
-    }
-
-    @Inject
-    public SampleService(Builder builder) {
-        this.builder = builder;
-    }
-
 
     @GET
     @Path("/hello")
     @Produces("text/plain")
     public String hello() {
-        return "Hello World"+builder;
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        User principal =(User) a.getPrincipal();
+        return "Hello World" +principal.getUsername();
     }
 
     @GET
