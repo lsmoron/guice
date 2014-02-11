@@ -2,6 +2,9 @@ package com.resteasy;
 
 
 import com.resteasy.model.Employee;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,12 +39,13 @@ public class SampleService {
     }
 
 
-
     @GET
     @Path("/hello")
     @Produces("text/plain")
     public String hello() {
-        return "Hello World";
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        User principal =(User) a.getPrincipal();
+        return "Hello World" +principal.getUsername();
     }
 
     @GET
